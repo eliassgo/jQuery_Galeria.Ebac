@@ -22,8 +22,30 @@ $(document).ready(function() { //quando o documento estiver pronto execute a fun
         $(novoItem).appendTo('ul');//colocando novo item dentro do ul
         $(novoItem).fadeIn();
         $('#endereço-imagem-nova').val('')
+         // Salva as imagens no local storage
+    const imagens = JSON.parse(localStorage.getItem('imagens')) || [];
+    imagens.push(enderecoDaNovaImagem);
+    localStorage.setItem('imagens', JSON.stringify(imagens));
     })
+    
 })
 //JQUERY funciona através do () e do $, $()entre parênteses fica o seletor
+$(document).ready(function() {
+    const imagens = JSON.parse(localStorage.getItem('imagens')) || [];
+    imagens.forEach(function(imagem) {
+        const novoItem = $('<li style="display: none"></li>');
+        $(`<img src="${imagem}" />`).appendTo(novoItem);
+        $(`
+            <div class="overlay-imagem-link">
+                <a href="${imagem}" target="_blank" title="ver imagem em tamanho real">
+                Ver imagem em tamanho real
+                </a>
+            </div>
+        `).appendTo(novoItem);
+        $(novoItem).appendTo('ul');
+        $(novoItem).fadeIn();
+    });
+});
+
 
 
