@@ -47,5 +47,28 @@ $(document).ready(function() {
     });
 });
 
+$('form').on('submit', function(e) {
+    e.preventDefault();
+    const enderecoDaNovaImagem = $('#endereco-imagem-nova').val();
+    const novoItem = $('<li style="display: none"></li>');
+    $(`<img src="${enderecoDaNovaImagem}" />`).appendTo(novoItem);
+    $(`
+        <div class="overlay-imagem-link">
+            <a href="${enderecoDaNovaImagem}" target="_blank" title="ver imagem em tamanho real">
+            Ver imagem em tamanho real
+            </a>
+            <button class="remover-imagem">Remover</button>
+        </div>
+    `).appendTo(novoItem);
+    $(novoItem).appendTo('ul');
+    $(novoItem).fadeIn();
+    $('#endereco-imagem-nova').val('');
+
+    $('.remover-imagem').click(function() {
+        $(this).closest('li').remove();
+    });
+});
+
+
 
 
